@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Spam Detector
 Created by: Salomón Olivera
@@ -41,14 +40,9 @@ def probability_per_word(word,label):
     return prob
 
 def validate_text(text_input):
-    file = 'spam.csv'
-
-    mainDict = {}
-    mainDict['ham'] = {}
-    mainDict['spam'] = {}
+    
     spamCounter = 0
     hamCounter = 0
-    stopWords = ['a','to','an','the','and']
     
     with open(file) as csvfile:
         reader = csv.DictReader(csvfile)
@@ -71,11 +65,10 @@ def validate_text(text_input):
     for key in mainDict['spam'].keys():
         countSpamWords = countSpamWords + mainDict['spam'][key]
     
-    totalWords = {}
     totalWords['ham'] = countHamWords
     totalWords['spam'] = countSpamWords
     
-    k = 1
+    
     totalMessages = spamCounter + hamCounter
     
     #Laplace smoothing
@@ -120,6 +113,14 @@ if __name__ == "__main__":
     root.resizable(False,False)
     
     message = StringVar()
+    stopWords = ['a','to','an','the','and']
+    file = 'spam.csv'
+    k = 1
+
+    mainDict = {}
+    totalWords = {}
+    mainDict['ham'] = {}
+    mainDict['spam'] = {}
     
     label_frame = Frame(root,width=500,height=40)
     label_frame.pack_propagate(0) # Stops child widgets of label_frame from resizing it
